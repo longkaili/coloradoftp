@@ -1,0 +1,12 @@
+Version 1.13
+Fixed occasional error in the configure method of IntelControlConnector
+Updated for Generic Bundle 1.23
+
+Version 1.12
+Fixed local/remote connection speed separation
+
+Version 1.11
+Fixed Local IP default regexp
+
+Version 1.10
+Adopted for the new multi-thread model

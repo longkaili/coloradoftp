@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ccc_gfx-1.00">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/libraries/ccc_gfx-1.00.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/libraries/ccc_misc5-1.02.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/libraries/cotta-1.2.0b44-hotfix.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

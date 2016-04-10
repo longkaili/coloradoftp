@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: net.sf.cotta:cotta:1.2.0b44-hotfix">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sf/cotta/cotta/1.2.0b44-hotfix/cotta-1.2.0b44-hotfix.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sf/cotta/cotta/1.2.0b44-hotfix/cotta-1.2.0b44-hotfix-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/net/sf/cotta/cotta/1.2.0b44-hotfix/cotta-1.2.0b44-hotfix-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

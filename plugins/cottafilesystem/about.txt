@@ -1,0 +1,3 @@
+COTTA based filesystem (http://cotta.sourceforge.net)
+
+File system plugin for ColoradoFTP with flexible XML configuration

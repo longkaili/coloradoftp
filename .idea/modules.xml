@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/cottafilesystem/cottafilesystem.iml" filepath="$PROJECT_DIR$/plugins/cottafilesystem/cottafilesystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/gateway/gateway.iml" filepath="$PROJECT_DIR$/plugins/gateway/gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/hardfilesystem/hardfilesystem.iml" filepath="$PROJECT_DIR$/plugins/hardfilesystem/hardfilesystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/impl3659/impl3659.iml" filepath="$PROJECT_DIR$/plugins/impl3659/impl3659.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/intellipack/intellipack.iml" filepath="$PROJECT_DIR$/plugins/intellipack/intellipack.iml" />
+      <module fileurl="file://$PROJECT_DIR$/main.iml" filepath="$PROJECT_DIR$/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/webcam/webcam.iml" filepath="$PROJECT_DIR$/plugins/webcam/webcam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/xmlfs/xmlfs.iml" filepath="$PROJECT_DIR$/plugins/xmlfs/xmlfs.iml" />
+    </modules>
+  </component>
+</project>

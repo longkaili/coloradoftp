@@ -1,0 +1,7 @@
+ColoradoFTP - The Open Source FTP Server 
+http://cftp.coldcore.com
+
+DOB 09/03/2006
+
+Customizable FTP server.
+The remake of CustomFTP and Ember projects.

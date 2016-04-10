@@ -1,0 +1,246 @@
+<!--
+ Proority:
+    ACCESS
+      CREATE
+        APPEND - files only
+          OVERWRITE - files only
+            RENAME
+              DELETE
+
+  IMPORTANT!
+  By default everything is allowed if not stated otherwise.
+  To forbid use both "folder-regexp" and "file-regexp" attributes with tag value of 0.
+  All regular expressions are tested against lower-cased file/folder names.
+-->
+
+<!-- Sample DTD for XML editors -->
+<!DOCTYPE file-system [
+    <!ELEMENT file-system ( users-path, users ) >
+
+    <!ELEMENT users-path ( #PCDATA ) >
+
+    <!ELEMENT users ( user+ ) >
+    <!ELEMENT user ( username, home ) >
+    <!ATTLIST user default CDATA #IMPLIED >
+    <!ELEMENT username ( #PCDATA ) >
+
+    <!ELEMENT home ( properties | virtual-folders )* >
+    <!ELEMENT virtual-folders ( folder+ ) >
+
+    <!ELEMENT folder ( name, path, properties* ) >
+    <!ELEMENT name ( #PCDATA ) >
+    <!ELEMENT path ( #PCDATA ) >
+
+    <!ELEMENT properties ( access | append | create | delete | list | overwrite | rename )* >
+    <!ATTLIST properties dir CDATA #IMPLIED >
+    <!ATTLIST properties spread CDATA #IMPLIED >
+
+    <!ELEMENT access ( #PCDATA ) >
+    <!ATTLIST access file-regexp CDATA #IMPLIED>
+    <!ATTLIST access folder-regexp CDATA #IMPLIED >
+
+    <!ELEMENT create ( #PCDATA ) >
+    <!ATTLIST create file-regexp CDATA #IMPLIED >
+    <!ATTLIST create folder-regexp CDATA #IMPLIED >
+
+    <!ELEMENT append ( #PCDATA ) >
+    <!ATTLIST append file-regexp CDATA #REQUIRED >
+
+    <!ELEMENT delete ( #PCDATA ) >
+    <!ATTLIST delete file-regexp CDATA #IMPLIED >
+    <!ATTLIST delete folder-regexp CDATA #IMPLIED >
+
+    <!ELEMENT list ( #PCDATA ) >
+    <!ATTLIST list file-regexp CDATA #IMPLIED >
+    <!ATTLIST list folder-regexp CDATA #IMPLIED >
+
+    <!ELEMENT overwrite ( #PCDATA ) >
+    <!ATTLIST overwrite file-regexp CDATA #REQUIRED >
+
+    <!ELEMENT rename ( #PCDATA ) >
+    <!ATTLIST rename file-regexp CDATA #IMPLIED >
+    <!ATTLIST rename folder-regexp CDATA #IMPLIED >
+
+
+    <!ENTITY fname "[a-zA-Z0-9_\-\. ]+">
+    <!ENTITY any ".*">
+]>
+
+
+<file-system>
+
+  <users-path>/ftp/users</users-path>
+
+
+  <users>
+
+    <!--
+    Anonymous user can upload files only to the root folder,
+    she cannot create new folders or overwrite files,
+    but she can browse sub directories and download anything.
+    This will also be default for the users who do not have defined mappings.
+    -->
+    <user default="1">
+      <username>anonymous</username>
+
+      <home>
+
+        <!-- Do not owerwrite any files in the root folder, do not create folders -->
+        <properties>
+          <overwrite file-regexp="&any;">0</overwrite>
+          <create file-regexp="&fname;">1</create>
+          <append file-regexp="&fname;">1</append>
+          <create folder-regexp="&any;">0</create>
+        </properties>
+
+        <!-- Plus do not modify content of sub folders -->
+        <properties spread="1">
+          <create folder-regexp="&any;" file-regexp="&any;">0</create>
+        </properties>
+
+      </home>
+    </user>
+
+
+
+    <user>
+      <username>goober</username>
+
+      <home>
+        <!--
+        GOOBER is a movie fan, always uploads tons of MPG. Let's cut off this joy.
+        -->
+        <properties spread="1">
+          <create file-regexp="&any;.mpg$">0</create>
+        </properties>
+
+        <!--
+        He also has a web site running under Tomcat. We must restrict JPS upload
+        to maintain security. Let's also forbid access to the main WEB-INF folder,
+        so he would not break his site.
+        -->
+        <virtual-folders>
+          <folder>
+            <name>!webpage</name>
+            <path>/tomcat/webapps/goober</path>
+
+            <properties>
+              <access folder-regexp="web-inf">0</access>
+            </properties>
+
+            <properties spread="1">
+              <create file-regexp="&any;.jsp$">0</create>
+              <create file-regexp="&any;.php$">0</create>
+            </properties>
+
+          </folder>
+        </virtual-folders>
+
+      </home>
+    </user>
+
+
+    <!--
+    COMRAD is a russian guy who likes to use cyrillic file names - not good.
+    And let's separate his directory into folders, each for different file types.
+    -->
+    <user>
+      <username>comrad</username>
+
+      <home>
+        <properties>
+          <rename folder-regexp="movies">0</rename>
+          <rename folder-regexp="music">0</rename>
+          <rename folder-regexp="images">0</rename>
+        </properties>
+
+        <properties dir="movies" spread="1">
+          <create file-regexp="&fname;.avi$">1</create>
+          <create file-regexp="&fname;.mpg$">1</create>
+          <create file-regexp="&any;">0</create>
+        </properties>
+
+        <properties dir="music" spread="1">
+          <create file-regexp="&fname;.mp3$">1</create>
+          <create file-regexp="&fname;.wav$">1</create>
+          <create file-regexp="&any;">0</create>
+        </properties>
+
+        <properties dir="images" spread="1">
+          <create file-regexp="&fname;.jpg$">1</create>
+          <create file-regexp="&fname;.gif$">1</create>
+          <create file-regexp="&any;">0</create>
+        </properties>
+
+        <properties spread="1">
+          <access folder-regexp="&fname;" file-regexp="&fname;">1</access>
+          <access folder-regexp="&fname;" file-regexp="&fname;">1</access>
+          <access folder-regexp="&any;" file-regexp="&any;">0</access>
+        </properties>
+
+      </home>
+    </user>
+
+
+    <!--
+    And for some weird reason I have to share my directory with EMBER.
+    Now, I have my personal files in there!
+    -->
+    <user>
+      <username>ember</username>
+
+      <home>
+
+        <!-- No way she sees my secret missions! -->
+        <properties dir="goverment/future/missions">
+          <access folder-regexp="&any;.secret$">0</access>
+          <list folder-regexp="&any;.secret$">0</list>
+        </properties>
+
+        <virtual-folders>
+          <folder>
+            <name>###cftp.coldcore.com###</name>
+            <path>/tomcat/webapps/ColoradoFTP</path>
+
+            <!-- Do not modify the release folder, EMBER -->
+            <properties dir="files/release" spread="1">
+              <create folder-regexp="&any;" file-regexp="&any;">0</create>
+            </properties>
+
+          </folder>
+        </virtual-folders>
+
+      </home>
+    </user>
+
+
+
+    <!-- My super user account, I have no restrictions! -->
+    <user>
+      <username>admin</username>
+
+      <home>
+        <virtual-folders>
+          <folder>
+            <name>users</name>
+            <path>/ftp/users</path>
+          </folder>
+          <folder>
+            <name>tomcat</name>
+            <path>/tomcat</path>
+          </folder>
+
+          <!-- A short cut to EMBER's diary... -->
+          <folder>
+            <name>XxXxXxX</name>
+            <path>/ftp/users/ember/secret-diary</path>
+          </folder>
+
+        </virtual-folders>
+      </home>
+    </user>
+
+  </users>
+
+
+</file-system>

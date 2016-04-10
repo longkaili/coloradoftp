@@ -1,0 +1,25 @@
+<!--
+    This file should be used with in-memory COTTA filesystem for testing FTP related operations.
+    It contains a minumum configuration possible, but nothing is stopping you from appending it.
+    The configuration manual is available at http://cftp.coldcore.com -> Project's WIKI
+-->
+<file-system>
+
+  <!-- Must be in an absolute form (not relative, must start with "/") -->
+  <users-path>/ftp/users</users-path>
+
+
+  <users>
+
+    <!--
+    Located in the directory: /ftp/users/anonymous (this directory is not created automatically)
+    This directory is a home folder for all users who do not have their homes defined in this XML file.
+    -->
+    <user default="1">
+      <username>anonymous</username>
+      <home/>
+    </user>
+
+  </users>
+
+</file-system>

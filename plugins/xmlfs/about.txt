@@ -1,0 +1,5 @@
+Library which dictates file system structure and permissions 
+based on XML configuration. 
+
+ColoradoFTP file system plug-ins use this library to provide 
+mappings to user homes and check permissions.

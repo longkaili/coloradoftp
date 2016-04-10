@@ -1,0 +1,61 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+  <!--
+    This has been deprecated due to its poor design.
+  -->
+
+  <!-- Users set -->
+  <bean id="users" class="java.util.HashSet">
+    <constructor-arg index="0">
+      <list>
+        <ref bean="admin.user"/>
+        <ref bean="root.user"/>
+        <ref bean="ember.user"/>
+        <ref bean="comrad.user"/>
+        <ref bean="mayday.user"/>
+      </list>
+    </constructor-arg>
+  </bean>
+
+
+  <!-- Roles -->
+
+  <bean id="su.role" class="com.coldcore.coloradoftp.plugin.gateway.impl.RoleBean">
+    <property name="name" value="su"/>
+  </bean>
+
+
+  <!-- Super users -->
+
+  <bean id="admin.user" class="com.coldcore.coloradoftp.plugin.gateway.impl.UserBean">
+    <property name="username" value="admin"/>
+    <property name="password" value="admin896"/>
+    <!--<property name="role" ref="su.role"/>-->
+  </bean>
+
+  <bean id="root.user" class="com.coldcore.coloradoftp.plugin.gateway.impl.UserBean">
+    <property name="username" value="root"/>
+    <property name="password" value="trustNo1"/>
+    <!--<property name="role" ref="su.role"/>-->
+  </bean>
+
+
+  <!-- Regular users -->
+
+  <bean id="ember.user" class="com.coldcore.coloradoftp.plugin.gateway.impl.UserBean">
+    <property name="username" value="ember"/>
+    <property name="password" value="MyPass"/>
+  </bean>
+
+  <bean id="comrad.user" class="com.coldcore.coloradoftp.plugin.gateway.impl.UserBean">
+    <property name="username" value="comrad"/>
+    <property name="password" value="cyrillic"/>
+  </bean>
+
+  <bean id="mayday.user" class="com.coldcore.coloradoftp.plugin.gateway.impl.UserBean">
+    <property name="username" value="mayday"/>
+    <property name="password" value="sOsOs"/>
+  </bean>
+
+</beans>

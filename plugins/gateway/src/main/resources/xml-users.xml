@@ -1,0 +1,18 @@
+<users>
+
+  <!-- Super users -->
+
+  <user name="admin" pass="admin896" role="su"/>
+
+  <user name="root" pass="trustNo1" role="su"/>
+
+
+  <!-- Regular users -->
+
+  <user name="ember" pass="MyPass"/>
+
+  <user name="comrad" pass="cyrillic"/>
+
+  <user name="mayday" pass="sOsOs"/>
+
+</users>

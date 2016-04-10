@@ -1,0 +1,89 @@
+package com.coldcore.coloradoftp.connection;
+
+import java.nio.channels.SocketChannel;
+
+/**
+ * Data or control connection.
+ * Connections read and write data from and to users.
+ *
+ * Life cycle of a connection is very simple. When it is accepted and configured it is then
+ * added to a connection pool which calls on it service method. When connection dies, the
+ * connection pool removes it from its internal list and the connection will be garbage
+ * collected.
+ *
+ * When poisoned, connection must die as soon as it has nothing to read/write to/from user.
+ * This is mainly for control connections as data connections do not use it. But since
+ * connection pool's specification requires it to poison all connections as soon as server's
+ * core becomes poisoned (before shutdown to let everyone finish and leave), the methods are
+ * located in this class.
+ *
+ *
+ * ColoradoFTP - The Open Source FTP Server (http://cftp.coldcore.com)
+ */
+
+/*一个接口类型connection,是数据连接和控制连接的基类，
+通过一个连接对象，实现对用户的数据读写.
+一个连接的生命周期是从其被添加到连接池到被从连接池移除的整个时间段。
+值得注意的是如果一个连接处于poisoned状态时，应该尽快的进入死亡状态，将自己从连接池中移除*/
+
+public interface Connection {
+
+  /** Kill connection (free resources) */
+  /*杀掉连接，释放资源*/
+  public void destroy();
+
+
+  /** Get connection's channel
+   * @return Channel
+   */
+　　/**获得连接的Socketchannel,以便进行读写操作*/
+  public SocketChannel getSocketChannel();
+
+
+  /** Initialize connection (acquire resources)
+   * @param channel Channel
+   */
+  /**初始化连接，获取资源*/
+  public void initialize(SocketChannel channel);
+
+
+  /** Test if connection is destroyed
+   * @return TRUE if destroyed, FALSE otherwise
+   */
+  /**测试连接是否已经中断*/
+  public boolean isDestroyed();
+
+
+  /** Poison connection (when there is nothing more to read/write it must die,
+   * data connections output/input data and die, control connections are not allowed to
+   * read user input and die when all output is done)
+   */
+  /**将连接置成poison状态，如果是数据连接，那么此时就意味着不能再向连接中读写数据了
+   如果是控制连接，那么就意味着不再允许接受用户的输入。总之连接必须马上死亡*/
+  public void poison();
+
+
+  /** Test if connection is poisoned (will be destroyed shortly)
+   * @return TRUE if poisoned, FALSE otherwise
+   */
+　/**测试连接是否已经处于poisoned状态*/
+  public boolean isPoisoned();
+
+
+  /** Get bytes user sent so far
+   * @return Bytes count
+   */
+ /**获得用户到目前为止发送的字节数*/
+  public long getBytesRead();
+
+
+  /** Get bytes server sent so far
+   * @return Bytes count
+   */
+ /**获得服务器到目前为止发送的字节数*/
+  public long getBytesWrote();
+
+
+  /** Self-service routine */
+  public void service() throws Exception;
+}

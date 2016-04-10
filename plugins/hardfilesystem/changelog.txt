@@ -1,0 +1,16 @@
+Version 1.05
+Method to retrieve virtual parent directory fixed
+
+Version 1.04
+XML configuration and permissions logic moved to the XmlFS library
+Filenames passed as parameters may now be loaded from a classpath
+
+Version 1.03
+Updated for Generic Bundle 1.23
+Default user feature added
+
+Version 1.02
+Added transferred.file attribute which points to the file being transferred on upload/download
+
+Version 1.01
+Added security fix to prevent users going outside home folder

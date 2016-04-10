@@ -1,0 +1,2 @@
+Version 1.01
+Updated for Generic Bundle 1.23

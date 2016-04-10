@@ -1,0 +1,10 @@
+Version 1.03
+Fixed a bug in the DatabaseUserDAO (not passing a username into a statement)
+
+Version 1.02
+Filenames passed as parameters may now be loaded from a classpath
+Users may have more than one role
+Spring DAO has been deprecated due to its poor design
+
+Version 1.01
+Added Acegi module

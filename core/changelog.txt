@@ -1,0 +1,39 @@
+Version 1.26
+Added config to bind control connector and data listener to specific host
+
+Version 1.25
+Improved the text of exceptions thrown in the core
+Fixed shutdown bug in the control connector and data port listeners
+Shortened after-termination server sleep time
+Connection waits for a reply to be sent after the QUIT command
+
+Version 1.24
+Minor bug fix in destroying late arrived data connections
+
+Version 1.23
+Disabled using REST/APPE with TYPE A to prevent corrupt files output
+Added UTF-8 support to Generic Control Connection
+HELP/FEAT command updated to accept command as an argument
+ObjectFactory removed from constructors to prevent errors when Spring creates InternalFactory
+Data connection removes session's attributes after a call to a callback object
+Execute-On-Parent feature added to Command to allow proper HELP/FEAT/OPTS
+OPTS command added
+Absolute Path property added to Listing File object
+MLSx Facts property added to Listing File object
+Method added to File System to convert user's input to an absolute path
+Method added to File System to get a Listing File object based on user's input
+TYPE A data filter improved to store text with OS native and return it with CRLF line feeds
+STAT command listing fixed
+INTERRUPT set/clear fix
+
+Version 1.22
+Callback object introduced to handle post-upload/download logic in a data connection
+Internal Spring Factory allows user to pass-in manually created bean factory
+Minor bug fixed preventing attempts to send unnecessary replies by Data Connection
+ABOR, QUIT, RETR, STOR commands minor fixes
+
+Version 1.21
+Fix to work with Spring 2.0 (XML loading routine fixed)
+
+Version 1.20
+Moved to multi-thread framework
